@@ -23,7 +23,26 @@ const GOAT_VIDEOS = [
   { id: 'CL86kq16vpA', title: 'goat vid 5'}, 
   { id: '09Gfo5B0z50', title: 'goat vid 6'}, 
   { id: 'Y66i5TgH_r4', title: 'goat vid 7'} 
-  
+  { id: 'W6EEXdiVaM4', title: 'Cutest Animal Goat Kid' },
+  { id: 'nh1yvwvMLbI', title: 'Funny Goat Tongue' },
+  { id: 'NaIrB-6XxNI', title: 'Quick Goat Clip' },
+  { id: 'nNFzkpIM4OA', title: 'Cute Baby Lamb and Goat' },
+  { id: 'OELoOaN33ks', title: 'Funny Goat Fail' },
+  { id: '1MxSH9_M_aI', title: 'Top Goat Moments' },
+  { id: '535Eiovot_c', title: 'Goat Making Faces' },
+  { id: 'T4qBwFM65zc', title: 'Cute Goat Kids Playing' },
+  { id: '6D-95s9NPMg', title: 'Baby Goat Jumping and Galloping' },
+  { id: '_rXqYNSr98U', title: 'Bouncy Jumping Baby Goat' },
+  { id: '0rylGW24JE4', title: 'Happy Baby Goat' },
+  { id: 'wmTMYUAggPE', title: 'Baby Pygmy Goats Running' },
+  { id: 'jKuE6hKBUCY', title: 'Goats Jumping for Joy' },
+  { id: 'L21Cbor6JIY', title: 'Baby Goat House Jump' },
+  { id: 'fmTNs6kktzo', title: 'Tiny Goat and Dog' },
+  { id: 'Kn14Q0gbCGI', title: 'Sideways Hopping Goats' },
+  { id: 'F3uYgYq1uWQ', title: 'Hopping Baby Goats' },
+  { id: 'y6Bsk9xHv2k', title: 'Leaps and Bounces Compilation' },
+  { id: 'ScCa7fZ-xPA', title: 'Pygmy Goats in the Grass' },
+  { id: 'Z8jk2KWsoMk', title: 'Adorable Baby Goat Interaction' }
   // Add more verified videos here by finding them on YouTube and copying the video ID
   // Example: { id: 'VIDEO_ID_HERE', title: 'Description' },
 ];
