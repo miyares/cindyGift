@@ -22,7 +22,7 @@ const GOAT_VIDEOS = [
   { id: 'OOOtPToJ6pc', title: 'goat vid 4'}, 
   { id: 'CL86kq16vpA', title: 'goat vid 5'}, 
   { id: '09Gfo5B0z50', title: 'goat vid 6'}, 
-  { id: 'Y66i5TgH_r4', title: 'goat vid 7'} 
+  { id: 'Y66i5TgH_r4', title: 'goat vid 7'},
   { id: 'W6EEXdiVaM4', title: 'Cutest Animal Goat Kid' },
   { id: 'nh1yvwvMLbI', title: 'Funny Goat Tongue' },
   { id: 'NaIrB-6XxNI', title: 'Quick Goat Clip' },
