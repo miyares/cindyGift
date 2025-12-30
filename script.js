@@ -16,6 +16,13 @@
 const GOAT_VIDEOS = [
   // VERIFIED WORKING VIDEO
   { id: 'f_3Utmj4RPU', title: 'Funny Fainting Goats' },
+  { id: 'mtOD19C7J48', title: 'goat vid 1' }, 
+  { id: 'nlYlNF30bVg', title: 'goat vid 2' }, 
+  { id: 'nlYlNF30bVg', title: 'goat vid 3'}, 
+  { id: 'OOOtPToJ6pc', title: 'goat vid 4'}, 
+  { id: 'CL86kq16vpA', title: 'goat vid 5'}, 
+  { id: '09Gfo5B0z50', title: 'goat vid 6'}, 
+  { id: 'Y66i5TgH_r4', title: 'goat vid 7'} 
   
   // Add more verified videos here by finding them on YouTube and copying the video ID
   // Example: { id: 'VIDEO_ID_HERE', title: 'Description' },
