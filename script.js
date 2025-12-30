@@ -209,6 +209,85 @@ function handleHeartClick() {
 }
 
 /**
+ * Show toast notification
+ */
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  
+  toast.textContent = message;
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+/**
+ * Get the current video's YouTube URL
+ */
+function getCurrentVideoUrl() {
+  const video = getTodaysGoat();
+  return `https://www.youtube.com/watch?v=${video.id}`;
+}
+
+/**
+ * Check if device is mobile
+ */
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+}
+
+/**
+ * Handle share button click
+ */
+async function handleShareClick() {
+  const videoUrl = getCurrentVideoUrl();
+  const shareData = {
+    title: 'Goat.tv - Check out this goat video!',
+    text: 'Watch this adorable goat! 🐐',
+    url: videoUrl
+  };
+  
+  // Mobile: Use Web Share API if available
+  if (isMobileDevice() && navigator.share) {
+    try {
+      await navigator.share(shareData);
+      console.log('🐐 Shared successfully!');
+    } catch (err) {
+      // User cancelled or error - fall back to clipboard
+      if (err.name !== 'AbortError') {
+        copyToClipboard(videoUrl);
+      }
+    }
+  } else {
+    // Desktop: Copy to clipboard
+    copyToClipboard(videoUrl);
+  }
+}
+
+/**
+ * Copy URL to clipboard and show toast
+ */
+async function copyToClipboard(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('vid link copied to clipboard, you goat 🐐');
+    console.log('📋 Link copied:', url);
+  } catch (err) {
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = url;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    showToast('vid link copied to clipboard, you goat 🐐');
+  }
+}
+
+/**
  * Called by YouTube API when player is ready
  */
 function onPlayerReady(event) {
@@ -331,6 +410,12 @@ document.addEventListener('DOMContentLoaded', () => {
   tag.src = 'https://www.youtube.com/iframe_api';
   const firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+  // Set up share button click handler
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', handleShareClick);
+  }
   
   // Set up mute button click handler
   const muteBtn = document.getElementById('mute-btn');
