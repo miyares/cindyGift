@@ -82,7 +82,7 @@ function getGoatDay() {
     goatDay.setDate(goatDay.getDate() + 1);
   }
   
-  const referenceDate = new Date(2025, 12, 29);
+  const referenceDate = new Date(2025, 11, 30); // December 30, 2025 (month is 0-indexed)
   const daysSinceReference = Math.floor((goatDay - referenceDate) / (1000 * 60 * 60 * 24));
   
   return daysSinceReference;
@@ -377,9 +377,11 @@ function initPlayer() {
       mute: 1,
       loop: 1,
       playlist: video.id,
-      controls: 1,
+      controls: 0,
       modestbranding: 1,
-      rel: 0
+      rel: 0,
+      disablekb: 1,
+      fs: 0
     },
     events: {
       onReady: onPlayerReady,
