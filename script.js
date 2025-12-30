@@ -31,6 +31,10 @@ let isMuted = true;
 // Stats
 let heartCount = 0;
 
+// Goat sounds
+const goatSound = new Audio('assets/goat-sound-390298.m4a');
+const shareSound = new Audio('assets/goatsound2.m4a');
+
 /**
  * Get the current "goat day" - changes at 11:59 PM CST
  * Returns a number representing the day for video selection
@@ -205,7 +209,30 @@ function createGoatBurst() {
 function handleHeartClick() {
   createGoatBurst();
   incrementHearts();
+  playGoatSound();
   console.log('❤️ Love sent! Total hearts:', heartCount);
+}
+
+/**
+ * Play goat sound effect (heart button)
+ */
+function playGoatSound() {
+  // Reset to start if already playing
+  goatSound.currentTime = 0;
+  goatSound.play().catch(err => {
+    // Ignore autoplay errors (user hasn't interacted yet)
+    console.log('🐐 Sound blocked - user interaction required first');
+  });
+}
+
+/**
+ * Play share sound effect
+ */
+function playShareSound() {
+  shareSound.currentTime = 0;
+  shareSound.play().catch(err => {
+    console.log('🐐 Sound blocked - user interaction required first');
+  });
 }
 
 /**
@@ -243,6 +270,7 @@ function isMobileDevice() {
  * Handle share button click
  */
 async function handleShareClick() {
+  playShareSound();
   const videoUrl = getCurrentVideoUrl();
   const shareData = {
     title: 'Goat.tv - Check out this goat video!',
