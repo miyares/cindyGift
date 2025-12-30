@@ -48,7 +48,8 @@ const GOAT_VIDEOS = [
 ];
 
 // Site launch date (for counting goat video days)
-const SITE_LAUNCH_DATE = new Date(2025, 12, 29); // December 29, 2025
+// Note: JavaScript months are 0-indexed (0=Jan, 11=Dec)
+const SITE_LAUNCH_DATE = new Date(2025, 11, 30); // December 30, 2025
 
 // YouTube Player reference
 let player = null;
@@ -56,6 +57,9 @@ let isMuted = true;
 
 // Stats
 let heartCount = 0;
+
+// Track current video to detect changes
+let currentVideoIndex = null;
 
 // Goat sounds
 const goatSound = new Audio('assets/goat-sound-390298.m4a');
@@ -368,7 +372,11 @@ function onPlayerStateChange(event) {
  * Initialize the YouTube player
  */
 function initPlayer() {
-  const video = getTodaysGoat();
+  const goatDay = getGoatDay();
+  currentVideoIndex = goatDay % GOAT_VIDEOS.length;
+  const video = GOAT_VIDEOS[currentVideoIndex];
+  
+  console.log(`🐐 Initializing player with video index ${currentVideoIndex}: ${video.title}`);
   
   player = new YT.Player('goat-video', {
     videoId: video.id,
@@ -440,14 +448,49 @@ function scheduleNextGoat() {
     console.log(`🐐 Next goat video in ${Math.round(timeUntilNext / 1000 / 60)} minutes`);
     
     setTimeout(() => {
-      // Load new video and update counter
-      const video = getTodaysGoat();
-      if (player && player.loadVideoById) {
-        player.loadVideoById(video.id);
-      }
-      updateStatsDisplay();
+      checkAndUpdateVideo();
       scheduleNextGoat();
     }, timeUntilNext);
+  }
+}
+
+/**
+ * Check if the video needs to change and update if so
+ */
+function checkAndUpdateVideo() {
+  const goatDay = getGoatDay();
+  const videoIndex = goatDay % GOAT_VIDEOS.length;
+  
+  // Only update if the video has actually changed
+  if (currentVideoIndex !== videoIndex) {
+    console.log(`🐐 New goat day! Switching from video ${currentVideoIndex} to ${videoIndex}`);
+    currentVideoIndex = videoIndex;
+    const video = GOAT_VIDEOS[videoIndex];
+    
+    if (player && player.loadVideoById) {
+      player.loadVideoById(video.id);
+    }
+    updateStatsDisplay();
+  }
+}
+
+/**
+ * Periodic check every minute to catch video changes
+ * This handles cases where the page was left open but timer drifted
+ */
+function startPeriodicCheck() {
+  setInterval(() => {
+    checkAndUpdateVideo();
+  }, 60000); // Check every minute
+}
+
+/**
+ * Handle visibility change - check for new video when tab becomes visible
+ */
+function handleVisibilityChange() {
+  if (!document.hidden) {
+    console.log('🐐 Tab became visible, checking for new video...');
+    checkAndUpdateVideo();
   }
 }
 
@@ -457,6 +500,10 @@ function scheduleNextGoat() {
 function onYouTubeIframeAPIReady() {
   initPlayer();
   scheduleNextGoat();
+  startPeriodicCheck();
+  
+  // Listen for tab visibility changes to check for new video
+  document.addEventListener('visibilitychange', handleVisibilityChange);
 }
 
 // Initialize when the page loads
