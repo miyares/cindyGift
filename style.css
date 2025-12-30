@@ -1,0 +1,579 @@
+/* === CSS Variables === */
+:root {
+  --bg-warm: #fdf6e9;
+  --bg-pattern: #f9edd8;
+  --tv-body: #8b5a3c;
+  --tv-body-light: #a67c5b;
+  --tv-body-dark: #6b4532;
+  --tv-bezel: #2d2d2d;
+  --screen-bg: #1a1a2e;
+  --accent-pink: #ff6b9d;
+  --accent-coral: #ff8a65;
+  --accent-gold: #ffd93d;
+  --text-dark: #3d2914;
+  --text-light: #f5f0e8;
+  --shadow: rgba(61, 41, 20, 0.3);
+}
+
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Fredoka', sans-serif;
+  background: var(--bg-warm);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* === Background Pattern === */
+.background-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--accent-pink) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, var(--accent-coral) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === Header === */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  z-index: 1;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-coral) 50%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 3px 3px 0 rgba(255, 107, 157, 0.1);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 400;
+  margin-top: 0.5rem;
+  color: var(--text-dark);
+}
+
+.goat-text {
+  font-weight: 700;
+  color: var(--accent-pink);
+  position: relative;
+}
+
+.goat-text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+  border-radius: 2px;
+}
+
+.love-note {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--accent-coral);
+  margin-top: 0.8rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+/* === Main Content === */
+main {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* === TV Container === */
+.tv-container {
+  position: relative;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Antenna === */
+.antenna {
+  position: relative;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -5px;
+}
+
+.antenna-left,
+.antenna-right {
+  width: 6px;
+  height: 70px;
+  background: linear-gradient(180deg, #666 0%, #888 50%, #666 100%);
+  border-radius: 3px;
+  position: absolute;
+  bottom: 0;
+  box-shadow: 1px 1px 3px var(--shadow);
+}
+
+.antenna-left {
+  transform: rotate(-25deg);
+  transform-origin: bottom center;
+  left: calc(50% - 40px);
+}
+
+.antenna-right {
+  transform: rotate(25deg);
+  transform-origin: bottom center;
+  right: calc(50% - 40px);
+}
+
+.antenna-ball {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 30% 30%, #aaa, #666);
+  border-radius: 50%;
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 1px 1px 3px var(--shadow);
+}
+
+/* === TV Body === */
+.tv-body {
+  background: linear-gradient(145deg, var(--tv-body-light) 0%, var(--tv-body) 50%, var(--tv-body-dark) 100%);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  gap: 15px;
+  box-shadow: 
+    0 8px 32px var(--shadow),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 95vw;
+}
+
+/* === TV Bezel === */
+.tv-bezel {
+  background: var(--tv-bezel);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 
+    inset 0 2px 8px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* === TV Screen === */
+.tv-screen {
+  position: relative;
+  width: clamp(280px, 50vw, 480px);
+  aspect-ratio: 16 / 9;
+  background: var(--screen-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.screen-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+#goat-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+}
+
+#goat-video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+}
+
+/* === TV Controls === */
+.tv-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 5px;
+  min-width: 60px;
+}
+
+.tv-speaker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+}
+
+.speaker-line {
+  width: 40px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--tv-body-dark) 0%, #4a3525 50%, var(--tv-body-dark) 100%);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tv-knobs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.knob {
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle at 30% 30%, #555, #222);
+  border-radius: 50%;
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.knob:hover {
+  transform: rotate(15deg);
+}
+
+.knob-indicator {
+  width: 3px;
+  height: 12px;
+  background: #ddd;
+  border-radius: 2px;
+  transform: translateY(-3px);
+}
+
+/* === Mute Button === */
+#mute-btn {
+  position: relative;
+}
+
+#mute-btn:hover {
+  transform: scale(1.1);
+}
+
+#mute-btn::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--text-light);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#mute-btn:hover::before {
+  opacity: 1;
+}
+
+.volume-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* === SVG Sound Icons === */
+.sound-icon {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.2s ease;
+  position: absolute;
+}
+
+/* When muted: show muted icon, hide sound-on icon */
+.volume-icon.muted .sound-off {
+  opacity: 1;
+}
+
+.volume-icon.muted .sound-on {
+  opacity: 0;
+}
+
+/* When unmuted: show sound-on icon, hide muted icon */
+.volume-icon:not(.muted) .sound-off {
+  opacity: 0;
+}
+
+.volume-icon:not(.muted) .sound-on {
+  opacity: 1;
+}
+
+/* === Heart Button === */
+.heart-btn {
+  position: relative;
+}
+
+.heart-btn:hover {
+  transform: scale(1.15);
+}
+
+.heart-btn:active {
+  transform: scale(0.95);
+}
+
+/* === SVG Heart Icon === */
+.heart-icon-svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.heart-btn:hover .heart-icon-svg {
+  animation: heartbeat 0.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* === Goat Emoji Burst === */
+.goat-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.goat-emoji {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0;
+  pointer-events: none;
+  animation: goatBurst 1.5s ease-out forwards;
+}
+
+@keyframes goatBurst {
+  0% {
+    opacity: 0.9;
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+  }
+  20% {
+    opacity: 0.8;
+    transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 2 - 50px)) scale(0.6) rotate(calc(var(--rot) * 2));
+  }
+}
+
+/* === TV Stand === */
+.tv-stand {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  margin-top: -5px;
+}
+
+.stand-leg {
+  width: 20px;
+  height: 30px;
+  background: linear-gradient(180deg, var(--tv-body-dark), var(--tv-body));
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+/* === Daily Note === */
+.daily-note {
+  margin-top: 2rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: var(--text-dark);
+  opacity: 0.7;
+  text-align: center;
+  animation: fadeIn 1s ease-out 0.8s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.7; }
+}
+
+/* === Stats Counter === */
+.stats-counter {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-pink);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  opacity: 0.6;
+}
+
+/* Heart count animation when incremented */
+.stat-value.pop {
+  animation: popNumber 0.3s ease-out;
+}
+
+@keyframes popNumber {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); color: var(--accent-coral); }
+  100% { transform: scale(1); }
+}
+
+/* === Footer === */
+footer {
+  margin-top: auto;
+  padding-top: 3rem;
+  text-align: center;
+  z-index: 1;
+}
+
+footer p {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: var(--text-dark);
+  opacity: 0.6;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .tv-body {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .tv-controls {
+    flex-direction: row;
+    min-width: auto;
+    padding: 10px 0 0 0;
+  }
+  
+  .tv-speaker {
+    flex-direction: row;
+  }
+  
+  .speaker-line {
+    width: 4px;
+    height: 30px;
+  }
+  
+  .tv-knobs {
+    flex-direction: row;
+  }
+  
+  .tv-stand {
+    gap: 80px;
+  }
+  
+}
+
+/* === Fun Hover Effects === */
+.tv-container:hover .antenna-left {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+.tv-container:hover .antenna-right {
+  animation: wiggleRight 0.5s ease-in-out 0.1s;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-25deg); }
+  25% { transform: rotate(-28deg); }
+  75% { transform: rotate(-22deg); }
+}
+
+@keyframes wiggleRight {
+  0%, 100% { transform: rotate(25deg); }
+  25% { transform: rotate(22deg); }
+  75% { transform: rotate(28deg); }
+}
+

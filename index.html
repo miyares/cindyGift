@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goat.tv – For the G.O.A.T. Mother-in-Law</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-pattern"></div>
+  
+  <header>
+    <h1>🐐 Goat.tv</h1>
+    <p class="subtitle">For the <span class="goat-text">G.O.A.T.</span> mother-in-law.<br>New goats drop at midnight.</p>
+  </header>
+
+  <main>
+    <div class="tv-container">
+      <!-- Antenna -->
+      <div class="antenna">
+        <div class="antenna-left">
+          <div class="antenna-ball"></div>
+        </div>
+        <div class="antenna-right">
+          <div class="antenna-ball"></div>
+        </div>
+      </div>
+      
+      <!-- TV Body -->
+      <div class="tv-body">
+        <div class="tv-bezel">
+          <div class="tv-screen">
+            <div class="screen-glare"></div>
+<div id="goat-video"></div>
+          </div>
+        </div>
+        
+        <div class="tv-controls">
+          <div class="tv-speaker">
+            <div class="speaker-line"></div>
+            <div class="speaker-line"></div>
+            <div class="speaker-line"></div>
+            <div class="speaker-line"></div>
+            <div class="speaker-line"></div>
+          </div>
+          <div class="tv-knobs">
+            <div class="knob" id="mute-btn" title="Click to unmute">
+              <div class="volume-icon muted">
+                <img src="assets/sound-off-svgrepo-com.svg" alt="Muted" class="sound-icon sound-off">
+                <img src="assets/sound-volume-2-svgrepo-com.svg" alt="Sound on" class="sound-icon sound-on">
+              </div>
+            </div>
+            <div class="knob heart-btn" id="heart-btn" title="Send love!">
+              <img src="assets/heart-svgrepo-com.svg" alt="Heart" class="heart-icon-svg">
+              <!-- Goat emoji container for animation -->
+              <div id="goat-burst" class="goat-burst"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TV Stand -->
+      <div class="tv-stand">
+        <div class="stand-leg left"></div>
+        <div class="stand-leg right"></div>
+      </div>
+    </div>
+    
+    
+    <!-- Stats Counter -->
+    <div class="stats-counter">
+      <div class="stat">
+        <span class="stat-value" id="goat-count">0</span>
+        <span class="stat-label">videos shown</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="heart-count">0</span>
+        <span class="stat-label">hearts sent</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Made with ❤️ by your favorite son-in-law</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
