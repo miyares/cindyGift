@@ -76,22 +76,34 @@
       </div>
     </div>
     
-    
-    <!-- Stats Counter -->
-    <div class="stats-counter">
-      <div class="stat">
-        <span class="stat-value" id="goat-count">0</span>
-        <span class="stat-label">videos shown</span>
+    <!-- Video Calendar -->
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button class="calendar-nav" id="prev-week" aria-label="Previous week">‹</button>
+        <div class="calendar-title" id="calendar-title">Week of Dec 30</div>
+        <button class="calendar-nav" id="next-week" aria-label="Next week">›</button>
       </div>
-      <div class="stat">
-        <span class="stat-value" id="heart-count">0</span>
-        <span class="stat-label">hearts sent</span>
+      <div class="calendar-weekdays">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
+      <div class="calendar-days" id="calendar-days">
+        <!-- Days populated by JS -->
+      </div>
+      <div class="calendar-tooltip" id="calendar-tooltip">
+        <div class="tooltip-date"></div>
+        <div class="tooltip-title"></div>
       </div>
     </div>
   </main>
 
   <footer>
-    <p>Made with ❤️ by your favorite son-in-law</p>
+    <p>Made with ❤️ <span id="heart-count">x0</span> by your favorite son-in-law</p>
   </footer>
 
   <script src="script.js"></script>

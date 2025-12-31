@@ -57,9 +57,15 @@ let isMuted = true;
 
 // Stats
 let heartCount = 0;
+let globalHeartCount = 0;
+const GLOBAL_HEARTS_STORAGE_KEY = 'goattv_global_hearts_v2';
 
 // Track current video to detect changes
 let currentVideoIndex = null;
+
+// Calendar state
+let currentWeekStart = null;
+let selectedDate = null;
 
 // Goat sounds
 const goatSound = new Audio('assets/goat-sound-390298.m4a');
@@ -147,12 +153,34 @@ function toggleMute() {
 }
 
 /**
+ * Load hearts for a specific video
+ */
+function loadHeartsForVideo(videoId) {
+  const hearts = localStorage.getItem(`goattv_hearts_${videoId}`);
+  return hearts ? parseInt(hearts, 10) : 0;
+}
+
+/**
+ * Save hearts for a specific video
+ */
+function saveHeartsForVideo(videoId, count) {
+  localStorage.setItem(`goattv_hearts_${videoId}`, count.toString());
+}
+
+/**
+ * Load global hearts
+ */
+function loadGlobalHearts() {
+  const savedGlobalHearts = localStorage.getItem(GLOBAL_HEARTS_STORAGE_KEY);
+  globalHeartCount = savedGlobalHearts ? parseInt(savedGlobalHearts, 10) : 0;
+}
+
+/**
  * Load and display stats
  */
 function loadStats() {
-  // Load heart count from localStorage
-  const savedHearts = localStorage.getItem('goattv_hearts_v2');
-  heartCount = savedHearts ? parseInt(savedHearts, 10) : 0;
+  // Load global heart count
+  loadGlobalHearts();
   
   // Update displays
   updateStatsDisplay();
@@ -162,15 +190,10 @@ function loadStats() {
  * Update stats display
  */
 function updateStatsDisplay() {
-  const goatCountEl = document.getElementById('goat-count');
   const heartCountEl = document.getElementById('heart-count');
   
-  if (goatCountEl) {
-    goatCountEl.textContent = getDaysSinceLaunch();
-  }
-  
   if (heartCountEl) {
-    heartCountEl.textContent = heartCount;
+    heartCountEl.textContent = `x${globalHeartCount}`;
   }
 }
 
@@ -178,16 +201,29 @@ function updateStatsDisplay() {
  * Increment heart count
  */
 function incrementHearts() {
-  heartCount++;
-  localStorage.setItem('goattv_hearts_v2', heartCount.toString());
+  // Increment per-video heart count
+  const videoId = GOAT_VIDEOS[currentVideoIndex].id;
+  let videoHearts = loadHeartsForVideo(videoId);
+  videoHearts++;
+  saveHeartsForVideo(videoId, videoHearts);
   
+  // Increment global heart count
+  globalHeartCount++;
+  localStorage.setItem(GLOBAL_HEARTS_STORAGE_KEY, globalHeartCount.toString());
+  
+  // Update displays
   const heartCountEl = document.getElementById('heart-count');
   if (heartCountEl) {
-    heartCountEl.textContent = heartCount;
+    heartCountEl.textContent = `x${globalHeartCount}`;
     // Trigger pop animation
     heartCountEl.classList.remove('pop');
     void heartCountEl.offsetWidth; // Force reflow
     heartCountEl.classList.add('pop');
+  }
+  
+  // Re-render calendar to show updated hearts on date
+  if (currentWeekStart) {
+    renderCalendar(currentWeekStart);
   }
 }
 
@@ -495,6 +531,246 @@ function handleVisibilityChange() {
 }
 
 /**
+ * Get the video index for a specific date
+ */
+function getVideoIndexForDate(date) {
+  const referenceDate = new Date(2025, 11, 30); // December 30, 2025
+  const daysSinceReference = Math.floor((date - referenceDate) / (1000 * 60 * 60 * 24));
+  return daysSinceReference % GOAT_VIDEOS.length;
+}
+
+/**
+ * Load video by date
+ */
+function loadVideoByDate(date) {
+  const videoIndex = getVideoIndexForDate(date);
+  const video = GOAT_VIDEOS[videoIndex];
+  
+  if (player && player.loadVideoById) {
+    player.loadVideoById(video.id);
+    currentVideoIndex = videoIndex;
+    selectedDate = new Date(date);
+    
+    // Update calendar display
+    renderCalendar(currentWeekStart);
+    
+    console.log(`🐐 Loaded video for ${date.toDateString()}: ${video.title}`);
+  }
+}
+
+/**
+ * Render the calendar for a given week
+ */
+function renderCalendar(weekStart) {
+  const calendarDays = document.getElementById('calendar-days');
+  if (!calendarDays) return;
+  
+  calendarDays.innerHTML = '';
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const launchDate = new Date(2025, 11, 30); // December 30, 2025
+  launchDate.setHours(0, 0, 0, 0);
+  
+  // Create 7 day cells
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(weekStart);
+    date.setDate(weekStart.getDate() + i);
+    date.setHours(0, 0, 0, 0);
+    
+    const dayEl = document.createElement('div');
+    dayEl.className = 'calendar-day';
+    
+    const dayNumber = document.createElement('div');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = date.getDate();
+    dayEl.appendChild(dayNumber);
+    
+    // Check if date is disabled (before launch or after today)
+    if (date < launchDate || date > today) {
+      dayEl.classList.add('disabled');
+    } else {
+      // Get video for this date
+      const videoIndex = getVideoIndexForDate(date);
+      const video = GOAT_VIDEOS[videoIndex];
+      const videoHearts = loadHeartsForVideo(video.id);
+      
+      if (videoHearts > 0) {
+        const heartsEl = document.createElement('div');
+        heartsEl.className = 'day-hearts';
+        heartsEl.textContent = `♥${videoHearts}`;
+        dayEl.appendChild(heartsEl);
+      }
+      
+      // Click handler
+      dayEl.addEventListener('click', () => {
+        loadVideoByDate(date);
+      });
+      
+      // Hover handler for tooltip
+      dayEl.addEventListener('mouseenter', (e) => {
+        showCalendarTooltip(e, date, video.title);
+      });
+      
+      dayEl.addEventListener('mouseleave', () => {
+        hideCalendarTooltip();
+      });
+    }
+    
+    // Mark today
+    if (date.getTime() === today.getTime()) {
+      dayEl.classList.add('today');
+    }
+    
+    // Mark selected date
+    if (selectedDate && date.getTime() === selectedDate.getTime()) {
+      dayEl.classList.add('selected');
+    }
+    
+    calendarDays.appendChild(dayEl);
+  }
+}
+
+/**
+ * Show calendar tooltip
+ */
+function showCalendarTooltip(event, date, videoTitle) {
+  const tooltip = document.getElementById('calendar-tooltip');
+  if (!tooltip) return;
+  
+  const dateStr = date.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+  
+  tooltip.querySelector('.tooltip-date').textContent = dateStr;
+  tooltip.querySelector('.tooltip-title').textContent = videoTitle;
+  
+  const rect = event.target.getBoundingClientRect();
+  tooltip.style.left = `${rect.left + rect.width / 2}px`;
+  tooltip.style.top = `${rect.top - 10}px`;
+  tooltip.style.transform = 'translate(-50%, -100%)';
+  
+  tooltip.classList.add('visible');
+}
+
+/**
+ * Hide calendar tooltip
+ */
+function hideCalendarTooltip() {
+  const tooltip = document.getElementById('calendar-tooltip');
+  if (tooltip) {
+    tooltip.classList.remove('visible');
+  }
+}
+
+/**
+ * Update calendar title
+ */
+function updateCalendarTitle(weekStart) {
+  const titleEl = document.getElementById('calendar-title');
+  if (!titleEl) return;
+  
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+  
+  const monthStart = weekStart.toLocaleDateString('en-US', { month: 'short' });
+  const monthEnd = weekEnd.toLocaleDateString('en-US', { month: 'short' });
+  const yearStart = weekStart.getFullYear();
+  const yearEnd = weekEnd.getFullYear();
+  
+  if (monthStart === monthEnd) {
+    titleEl.textContent = `Week of ${monthStart} ${weekStart.getDate()}, ${yearStart}`;
+  } else if (yearStart === yearEnd) {
+    titleEl.textContent = `${monthStart} ${weekStart.getDate()} - ${monthEnd} ${weekEnd.getDate()}, ${yearStart}`;
+  } else {
+    titleEl.textContent = `${monthStart} ${weekStart.getDate()}, ${yearStart} - ${monthEnd} ${weekEnd.getDate()}, ${yearEnd}`;
+  }
+}
+
+/**
+ * Go to previous week
+ */
+function goToPreviousWeek() {
+  const newWeekStart = new Date(currentWeekStart);
+  newWeekStart.setDate(currentWeekStart.getDate() - 7);
+  
+  // Don't allow navigation before week of December 28, 2025
+  const earliestWeek = new Date(2025, 11, 28); // December 28, 2025
+  if (newWeekStart < earliestWeek) {
+    return;
+  }
+  
+  currentWeekStart = newWeekStart;
+  updateCalendarTitle(currentWeekStart);
+  renderCalendar(currentWeekStart);
+  updateNavigationButtons();
+}
+
+/**
+ * Go to next week
+ */
+function goToNextWeek() {
+  const newWeekStart = new Date(currentWeekStart);
+  newWeekStart.setDate(currentWeekStart.getDate() + 7);
+  
+  currentWeekStart = newWeekStart;
+  updateCalendarTitle(currentWeekStart);
+  renderCalendar(currentWeekStart);
+  updateNavigationButtons();
+}
+
+/**
+ * Update navigation button states
+ */
+function updateNavigationButtons() {
+  const prevBtn = document.getElementById('prev-week');
+  const nextBtn = document.getElementById('next-week');
+  
+  if (!prevBtn || !nextBtn) return;
+  
+  // Disable previous button if at earliest allowed week
+  const earliestWeek = new Date(2025, 11, 28); // December 28, 2025
+  prevBtn.disabled = currentWeekStart <= earliestWeek;
+}
+
+/**
+ * Initialize calendar to current week
+ */
+function initCalendar() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  // Find the start of the week (Sunday)
+  const dayOfWeek = today.getDay();
+  currentWeekStart = new Date(today);
+  currentWeekStart.setDate(today.getDate() - dayOfWeek);
+  
+  // Set selected date to today
+  selectedDate = new Date(today);
+  
+  updateCalendarTitle(currentWeekStart);
+  renderCalendar(currentWeekStart);
+  
+  // Set up navigation buttons
+  const prevBtn = document.getElementById('prev-week');
+  const nextBtn = document.getElementById('next-week');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', goToPreviousWeek);
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', goToNextWeek);
+  }
+  
+  // Update button states
+  updateNavigationButtons();
+}
+
+/**
  * Called by YouTube IFrame API when ready
  */
 function onYouTubeIframeAPIReady() {
@@ -534,6 +810,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Load and display stats
   loadStats();
+  
+  // Initialize calendar
+  initCalendar();
   
   // Fun console message
   console.log('🐐 Welcome to Goat.tv! 🐐');
