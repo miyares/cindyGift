@@ -354,7 +354,83 @@ const GOAT_VIDEOS = [
   { id: 'wHeBlMp83_o', title: 'Goats Playing King Of The Hill' },
   // More trampoline
   { id: '18yd---vGhk', title: 'Funny Baby Goat Jumping on a Trampoline' },
-  { id: '6oG9rJQT9eI', title: 'Goats Jumping on a Trampoline' }
+  { id: '6oG9rJQT9eI', title: 'Goats Jumping on a Trampoline' },
+  // --- Batch 3: appended to extend future days (does not change past picks) ---
+  // Leftover Halloween pumpkins
+  { id: 'd1MfQ8-f6UU', title: 'Pumpkins for My Goats!' },
+  { id: 'W3ln3Ourh68', title: 'Goats Love Leftover Halloween Pumpkins' },
+  { id: 'Xri1vE4b_vA', title: 'The Goats Eating Pumpkin!' },
+  // Seesaws, balance beams & parkour
+  { id: 'PaDTBkFyPMI', title: 'Day-old Baby Goats Playing on a See-saw' },
+  { id: 'kfx1FF8D0CE', title: 'Baby Pygmy Goat Plays on Seesaw' },
+  { id: 'QC4WtxM97uE', title: 'Baby Boer Goats on a Balance Beam' },
+  { id: 'LSAk6vqSj0k', title: 'Balance Beam Goat at Sunflower Farm' },
+  { id: 'oG5nnauAMhg', title: 'Baby Goat Parkour in a Bike Park' },
+  { id: 'Px_jxDciF1M', title: 'Baby Goats Do Parkour to Escape a Leopard | BBC Earth' },
+  // Hiccups, yawns & tail wiggles
+  { id: 'XkDEUTbrUJ0', title: 'Miniature Goat Kid Has the Hiccups!' },
+  { id: 'OMyXjXKUUU0', title: 'Tiny Baby Goat With Hiccups!' },
+  { id: 'Bhgr0dEUzuk', title: 'Baby Goat Yawn' },
+  { id: 'ztipwREcJz0', title: 'Baby Goats Wiggle Tails as They Drink Their Milk' },
+  { id: 'cXcGP4unKbU', title: 'Cinnamon the Angora Goat Kid Drinks Her Milk and Expresses Her Opinion' },
+  // Odd-couple friends
+  { id: 'g7WjrvG1GMk', title: 'Pig Rescues Baby Goat' },
+  { id: 'BkXtCc6RSIM', title: 'Three-Legged Baby Goat Finds a Best Friend in a Little Pig | The Dodo' },
+  { id: 'vOAjMiKjgMc', title: 'Pig Meeting His Goat Friends' },
+  { id: 'QwT_WxsmLp8', title: 'Goat Loves Getting a Lift From His Friend | The Dodo' },
+  { id: '1sUbWZMzk9U', title: 'Horse and Goat Are Best Friends' },
+  { id: '3OU1GA475WA', title: 'Baby Goats Jumping on Sleeping Great Pyrenees' },
+  { id: 'AeWT8e52sqI', title: 'German Shepherd Meets Baby Goat for the First Time' },
+  // Goats up trees & on roofs
+  { id: 'SEIgvuovNuk', title: 'Goats in a Tree in Morocco' },
+  { id: 'z2YKwGtcMY8', title: "Tree-Climbing Goats in Morocco's Argan Forest" },
+  { id: 'rwwO_ruIlUc', title: "These Goats Climb Trees Like It's Their Job" },
+  { id: 'jZY9xGd2uaM', title: "The Goats on the Roof at Al Johnson's" },
+  { id: 'v0a2X8NYgGw', title: 'Davis Homeowner Finds Goats on Their Roof' },
+  // House goats & diapers
+  { id: 'PHOWkGTBbjQ', title: "Baby Goats' First Diaper" },
+  { id: 'f8noT3JfCbU', title: 'Baby Goats in Diapers!' },
+  { id: 'HsFQkYTirj0', title: 'Cute Baby Goats Sleeping & Feeding' },
+  { id: 'QgtpxgY_7BY', title: 'Goat Gets Head Stuck in Fence' },
+  // Breeds: LaMancha, Boer & Angora kids
+  { id: 'Eh20Vb_Xu4w', title: 'Playful LaMancha Goat Kids' },
+  { id: 'jGcWCn-pFyY', title: 'LaMancha Goat Kids Playing on a Log' },
+  { id: 'ZrHUwanWjJI', title: 'Big Bouncing Baby Boer Goats' },
+  { id: 'dS9utCz_pRc', title: 'Baby Boer Goats Playing in Jamaica, Iowa' },
+  { id: 'dTFASjTpQsI', title: 'Get Off My Slide! Baby Boer Goats Playing' },
+  { id: '4BeUIkR7rAc', title: 'Angora Goat Kids Playing' },
+  // Baths, brushes & itch scratches
+  { id: 'mPtpsg_8h8I', title: 'Baby Goat Gets a Bath' },
+  { id: 'jkmIVvyKoc8', title: 'Winston the Goat - Bath Time!' },
+  { id: 'CgFqXfGnLko', title: 'Goat Gets Her Itch Scratched!' },
+  { id: 'jVU4e6pZ6mg', title: 'Adorable Goats Love Their Scratching Brush' },
+  { id: 'fVZHR-u7D4k', title: 'Adorable Goats Scratch an Itch at Frankfurt Zoo' },
+  // First snow (lands the week before Christmas)
+  { id: 'vbs7ZdZaHz0', title: 'Goats Venture Out Into First Snowy Morning!' },
+  { id: 'xwCQpflLEa4', title: 'Baby Goat Kids Play in Maine Snow for the First Time' },
+  { id: 'XCm8Pb6Iu5E', title: 'Mini Goats See Snow for the First Time!' },
+  { id: 'xiVKt0SGW9g', title: 'Baby Goats in Snow' },
+  { id: '8PjmI9_CL-o', title: 'Baby Goats Slip & Slide' },
+  // Bundled up
+  { id: 'xyJ5CeonQjo', title: 'Baby Goats in Tiny Coats at White Lotus Farms' },
+  { id: 'kENQrvCjV7Y', title: 'Baby Goat in Boots' },
+  { id: 'QlF_Y3EG2h0', title: 'Goat Wears New Raincoat & Rain Boots' },
+  // Christmas morning
+  { id: '6qdD7bvpek4', title: 'Mornings Are Never Dull With 53 Baby Goats!' },
+  // Leftover Christmas trees (lands after Christmas)
+  { id: '44_F-kuVX7c', title: 'Got a Used Christmas Tree? Feed It to a Goat' },
+  { id: 'W_aPFpmxnm0', title: 'Goats Feast on Used Christmas Trees' },
+  { id: 'cxQvIWck1WY', title: 'Petting Zoo: Christmas Tree-Eating Goats' },
+  { id: 'KaPWQnQrLbA', title: 'Hungry Goats Want to Eat Your Christmas Tree' },
+  // Funny faces & mishaps
+  { id: '1xUGXYe6R9M', title: 'Goat Wiggles Tongue and Pulls Funny Face' },
+  // Balls & dancing
+  { id: 'jbGgy26ACJw', title: 'Baby Goat Loves Ball' },
+  { id: 'ueoLTF1FpEc', title: 'George the Basketball Playing Goat' },
+  { id: '3V0eTsiApxU', title: 'Dancing Goats' },
+  { id: 'l9IKzbbcCs0', title: 'Funny Goats Dancing' },
+  // First steps
+  { id: '0IE6ovgqaYo', title: 'Brand New Baby Mini Goat Takes Her First Steps!' }
   // Add more verified videos here by finding them on YouTube and copying the video ID
   // Example: { id: 'VIDEO_ID_HERE', title: 'Description' },
 ];
